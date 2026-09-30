@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Research Agent</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span>◆</span>Research Agent</div>
+    <div id="status" class="badge">checking…</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Ask a question.<br />Get a cited research report.</h1>
+      <p>The agent searches the web, reads every source, checks where they agree and disagree,
+         and writes a report where every claim links back to its source.</p>
+      <form id="form">
+        <input id="topic" maxlength="300" autocomplete="off" required
+               placeholder="e.g. Is intermittent fasting effective for weight loss?" />
+        <select id="depth" aria-label="Research depth">
+          <option value="quick">Quick · 5 sources</option>
+          <option value="standard" selected>Standard · 8 sources</option>
+          <option value="deep">Deep · 12 sources</option>
+        </select>
+        <button id="go" type="submit">Research</button>
+      </form>
+      <div class="examples">
+        <button type="button" class="example">Health effects of intermittent fasting</button>
+        <button type="button" class="example">Will AI reduce demand for software engineers?</button>
+        <button type="button" class="example">How close are solid-state batteries to market?</button>
+      </div>
+    </section>
+
+    <section id="workspace" class="workspace hidden">
+      <aside class="panel progress">
+        <h2>Progress</h2>
+        <ol id="stages">
+          <li data-stage="plan">Plan research</li>
+          <li data-stage="search">Search the web</li>
+          <li data-stage="read">Read pages</li>
+          <li data-stage="extract">Extract &amp; verify claims</li>
+          <li data-stage="compare">Compare sources</li>
+          <li data-stage="write">Write report</li>
+          <li data-stage="cite">Create citations</li>
+        </ol>
+        <div id="plan" class="plan"></div>
+        <ul id="log" class="log"></ul>
+      </aside>
+
+      <div>
+        <nav class="tabs">
+          <button class="tab active" data-tab="report">Report</button>
+          <button class="tab" data-tab="sources">Sources <span id="src-count"></span></button>
+          <button class="tab" data-tab="compare">Comparison</button>
+        </nav>
+
+        <div id="tab-report" class="panel tab-body">
+          <div id="report-actions" class="report-actions hidden">
+            <button id="copy">Copy Markdown</button>
+            <button id="download">Download .md</button>
+          </div>
+          <article id="report" class="report"></article>
+          <div id="refs" class="refs"></div>
+        </div>
+
+        <div id="tab-sources" class="panel tab-body hidden">
+          <div id="sources" class="sources"></div>
+        </div>
+
+        <div id="tab-compare" class="panel tab-body hidden">
+          <div id="compare"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
